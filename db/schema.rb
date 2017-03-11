@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20170311002011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "lectures", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "professor_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["professor_id"], name: "index_lectures_on_professor_id", using: :btree
+  end
+
+  create_table "professors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "run"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "lectures", "professors"
 end
